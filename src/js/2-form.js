@@ -8,13 +8,13 @@ const formData = {
 const textarea = form.elements.message;
 const input = form.elements.email;
 
-const newFormDataObject = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+const savedFormData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
-if (newFormDataObject) {
-  textarea.value = newFormDataObject.message;
-  input.value = newFormDataObject.email;
-  formData.email = newFormDataObject.email;
-  formData.message = newFormDataObject.message;
+if (savedFormData) {
+  textarea.value = savedFormData.message;
+  input.value = savedFormData.email;
+  formData.email = savedFormData.email;
+  formData.message = savedFormData.message;
 } else {
   textarea.value = '';
   input.value = '';
@@ -26,7 +26,7 @@ function handleInput(event) {
   } else if (event.target.name === 'message') {
     formData.message = event.target.value.trim();
   }
-  localStorage.setItem(localStorageKey, JSON.stringify(formData));
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(formData));
 }
 
 form.addEventListener('input', handleInput);
@@ -35,7 +35,7 @@ function handleSubmit(event) {
   event.preventDefault();
   if (textarea.value.trim() !== '' && input.value.trim() !== '') {
     console.log(formData);
-    localStorage.removeItem(localStorageKey);
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
     formData.email = '';
     formData.message = '';
     form.reset();
